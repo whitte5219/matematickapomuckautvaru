@@ -1,64 +1,132 @@
+/* ---------- GLOBAL ---------- */
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
   background: white;
   color: black;
   margin: 0;
   padding: 20px;
 }
 
-.tabs { margin: 10px 0 20px; }
-.tabs button { padding: 6px 12px; margin: 0 6px; }
-.tabs button.active { font-weight: bold; }
-
-.page { max-width: 900px; margin: 0 auto; text-align: center; }
-.hidden { display: none; }
-
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: left;
+h1, h2, h3 {
+  text-align: center;
 }
 
-label { display: block; }
-select, input { width: 100%; padding: 6px; margin-top: 4px; }
+p {
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+/* ---------- TABS ---------- */
+.tabs {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background: #f0f0f0;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  font-weight: bold;
+  background: #e0e0e0;
+}
+
+/* ---------- PAGES ---------- */
+.page {
+  max-width: 900px;
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ---------- FORM LAYOUT ---------- */
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 15px 0;
+}
+
+label {
+  font-weight: bold;
+}
+
+select, input {
+  margin-left: 6px;
+  padding: 4px;
+}
 
 .inputs {
-  max-width: 600px;
-  margin: 12px auto;
-  text-align: left;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  max-width: 300px;
+  margin: auto;
 }
 
-.canvasWrap { margin-top: 10px; }
+.inputs div {
+  margin-bottom: 10px;
+}
+
+/* ---------- CANVAS ---------- */
 canvas {
   display: block;
-  margin: 14px auto;
+  margin: 20px auto;
   border: 1px solid black;
   background: white;
 }
 
+/* ---------- HELP SECTION ---------- */
 .helpCard {
-  border: 1px solid #000;
+  border: 1px solid black;
   padding: 10px;
-  margin: 12px auto;
-  max-width: 900px;
+  margin: 10px auto;
+  max-width: 800px;
+}
+
+.helpTitle {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* ---------- AI CHAT ---------- */
+#chatBox {
+  border: 1px solid black;
+  height: 300px;
+  padding: 10px;
+  overflow-y: auto;
+  background: white;
+  max-width: 800px;
+  margin: 10px auto;
+}
+
+.chatUser {
+  text-align: right;
+  margin: 6px 0;
+}
+
+.chatAI {
   text-align: left;
+  margin: 6px 0;
 }
 
-.helpTitle { font-weight: bold; margin-bottom: 6px; }
-
-.helpGrid {
-  display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
-  gap: 10px;
-  align-items: center;
+#aiInput {
+  flex: 1;
+  padding: 6px;
 }
 
-.helpImg { text-align: center; }
-.helpText ul { margin: 0; padding-left: 18px; }
+#aiSend {
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+/* ---------- SMALL SCREENS ---------- */
+@media (max-width: 600px) {
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+}

@@ -3,27 +3,62 @@ body {
   text-align: center;
   background: white;
   color: black;
+  margin: 0;
+  padding: 20px;
 }
 
-.tabs button {
-  margin: 5px;
-  padding: 6px 12px;
+.tabs { margin: 10px 0 20px; }
+.tabs button { padding: 6px 12px; margin: 0 6px; }
+.tabs button.active { font-weight: bold; }
+
+.page { max-width: 900px; margin: 0 auto; text-align: center; }
+.hidden { display: none; }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
 }
 
-label {
-  display: block;
-  margin: 10px;
+label { display: block; }
+select, input { width: 100%; padding: 6px; margin-top: 4px; }
+
+.inputs {
+  max-width: 600px;
+  margin: 12px auto;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
+.canvasWrap { margin-top: 10px; }
 canvas {
+  display: block;
+  margin: 14px auto;
   border: 1px solid black;
-  margin-top: 10px;
+  background: white;
 }
 
-.hidden {
-  display: none;
+.helpCard {
+  border: 1px solid #000;
+  padding: 10px;
+  margin: 12px auto;
+  max-width: 900px;
+  text-align: left;
 }
 
-.buttons button {
-  margin: 5px;
+.helpTitle { font-weight: bold; margin-bottom: 6px; }
+
+.helpGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 10px;
+  align-items: center;
 }
+
+.helpImg { text-align: center; }
+.helpText ul { margin: 0; padding-left: 18px; }

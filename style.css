@@ -1,64 +1,121 @@
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
   background: white;
   color: black;
   margin: 0;
   padding: 20px;
 }
 
-.tabs { margin: 10px 0 20px; }
-.tabs button { padding: 6px 12px; margin: 0 6px; }
-.tabs button.active { font-weight: bold; }
+h1, h2, h3 { text-align: center; margin: 10px 0; }
 
-.page { max-width: 900px; margin: 0 auto; text-align: center; }
+.page { max-width: 980px; margin: 0 auto; }
 .hidden { display: none; }
 
-.row {
+/* Tabs */
+.tabs { text-align: center; margin-bottom: 18px; }
+.tabs button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background: #f0f0f0;
+  border: 1px solid black;
+  cursor: pointer;
+}
+.tabs button.active { font-weight: bold; background: #e0e0e0; }
+
+/* Kalkulačka layout */
+#calc .row{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  max-width: 600px;
-  margin: 0 auto;
+  gap: 16px;
+  max-width: 640px;
+  margin: 12px auto;
   text-align: left;
 }
 
-label { display: block; }
-select, input { width: 100%; padding: 6px; margin-top: 4px; }
+label { font-weight: normal; }
 
-.inputs {
-  max-width: 600px;
-  margin: 12px auto;
+select, input{
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #777;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+.inputs{
+  max-width: 640px;
+  margin: 10px auto;
   text-align: left;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.canvasWrap { margin-top: 10px; }
-canvas {
+#calc p{
+  text-align: center;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+canvas{
   display: block;
-  margin: 14px auto;
+  margin: 16px auto;
   border: 1px solid black;
   background: white;
 }
 
-.helpCard {
-  border: 1px solid #000;
+/* Pomůcky cards */
+.helpCard{
+  border: 1px solid black;
   padding: 10px;
   margin: 12px auto;
   max-width: 900px;
   text-align: left;
 }
+.helpTitle{ font-weight: bold; margin-bottom: 6px; }
 
-.helpTitle { font-weight: bold; margin-bottom: 6px; }
-
-.helpGrid {
+.helpGrid{
   display: grid;
   grid-template-columns: 1.3fr 0.7fr;
   gap: 10px;
   align-items: center;
 }
+.helpImg{ text-align: center; }
+.helpText ul{ margin: 0; padding-left: 18px; }
 
-.helpImg { text-align: center; }
-.helpText ul { margin: 0; padding-left: 18px; }
+/* AI assistant */
+#ai p{ max-width: 900px; margin: 10px auto; }
+#chatBox{
+  border: 1px solid black;
+  height: 300px;
+  padding: 10px;
+  overflow-y: auto;
+  background: white;
+  max-width: 900px;
+  margin: 10px auto;
+}
+.chatUser{ text-align: right; margin: 8px 0; }
+.chatAI{ text-align: left; margin: 8px 0; }
+
+#ai .row{
+  display: flex;
+  gap: 10px;
+  max-width: 900px;
+  margin: 10px auto;
+}
+#aiSend{
+  width: 140px;
+  background: #f0f0f0;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 700px){
+  #calc .row{ grid-template-columns: 1fr; }
+  .inputs{ grid-template-columns: 1fr; }
+  .helpGrid{ grid-template-columns: 1fr; }
+  #ai .row{ flex-direction: column; }
+  #aiSend{ width: 100%; }
+}

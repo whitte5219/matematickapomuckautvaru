@@ -1,5 +1,5 @@
 // === CONFIG ===
-const COHERE_API_KEY = ""; // <-- paste your key here
+const COHERE_API_KEY = "PK6ZC8iaxpBoEYu2FMXoymt9LmgQuNPcyZt7pZ6U"; // <-- paste your key here
 const COHERE_MODEL = "command-a-reasoning-08-2025";
 
 function initAI() {

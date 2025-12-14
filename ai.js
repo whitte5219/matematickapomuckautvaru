@@ -1,49 +1,81 @@
-// === CONFIG ===
-const COHERE_API_KEY = "PK6ZC8iaxpBoEYu2FMXoymt9LmgQuNPcyZt7pZ6U"; // <-- paste your key here
+// ================= CONFIG =================
+const COHERE_API_KEY = ""; // <-- PUT YOUR KEY HERE
 const COHERE_MODEL = "command-a-reasoning-08-2025";
 
+// ================= INIT =================
 function initAI() {
   const chatBox = document.getElementById("chatBox");
   const aiInput = document.getElementById("aiInput");
   const aiSend  = document.getElementById("aiSend");
 
   if (!chatBox || !aiInput || !aiSend) {
-    console.error("AI init failed: elements not found. Check ids in index.html.");
+    console.error("AI init failed: elements not found.");
     return;
   }
 
   const history = [];
 
-  function addMessage(text, cls) {
-    const div = document.createElement("div");
-    div.className = cls;
-    div.textContent = text;
-    chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight;
+  // ================= HELPERS =================
+  function sanitize(text) {
+    return text
+      .replace(/[*`#>-]/g, "")     // remove markdown symbols
+      .replace(/\n{2,}/g, "\n")    // collapse new lines
+      .trim();
   }
 
-  // visible proof the script is running
-  addMessage("AI je připraven ✅ (ai.js se načetl)", "chatAI");
+  function addBubble(text, side) {
+    const row = document.createElement("div");
+    row.className = "msgRow " + side;
 
+    const bubble = document.createElement("div");
+    bubble.className = "bubble " + side;
+    bubble.textContent = text;
+
+    row.appendChild(bubble);
+    chatBox.appendChild(row);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    return bubble;
+  }
+
+  function addTypingBubble() {
+    const row = document.createElement("div");
+    row.className = "msgRow ai";
+
+    const bubble = document.createElement("div");
+    bubble.className = "bubble ai";
+
+    const dots = document.createElement("span");
+    dots.className = "typingDots";
+    dots.textContent = "● ● ●";
+
+    bubble.appendChild(dots);
+    row.appendChild(bubble);
+    chatBox.appendChild(row);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    return row;
+  }
+
+  // ================= READY MESSAGE =================
+  addBubble("AI je připraven ✅", "ai");
+
+  // ================= SEND MESSAGE =================
   async function sendMessage() {
     const userText = aiInput.value.trim();
     if (!userText) return;
 
-    addMessage(userText, "chatUser");
+    addBubble(userText, "user");
     aiInput.value = "";
 
     if (!COHERE_API_KEY) {
-      addMessage("Chybí API klíč. Vlož ho do ai.js do COHERE_API_KEY.", "chatAI");
+      addBubble("Chybí API klíč v souboru ai.js.", "ai");
       return;
     }
 
-    const loading = document.createElement("div");
-    loading.className = "chatAI";
-    loading.textContent = "AI píše…";
-    chatBox.appendChild(loading);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
     history.push({ role: "user", content: userText });
+
+    const typingRow = addTypingBubble();
 
     try {
       const res = await fetch("https://api.cohere.com/v2/chat", {
@@ -58,8 +90,10 @@ function initAI() {
             {
               role: "system",
               content:
-                "Jsi školní asistent pro matematiku (ZŠ). Vysvětluj česky, jednoduše, krok za krokem. " +
-                "Zaměř se na rozdíl: obvod/obsah/povrch/objem a tvary: čtverec, obdélník, kruh, trojúhelník, krychle, kvádr."
+                "Jsi školní asistent matematiky (ZŠ). " +
+                "Vysvětluj česky, velmi jednoduše, krátce, bez markdownu, bez seznamů. " +
+                "Používej krátké věty. Maximálně 6–8 řádků. " +
+                "Nevypisuj kroky jako seznam, piš normální text."
             },
             ...history
           ]
@@ -67,38 +101,39 @@ function initAI() {
       });
 
       const data = await res.json();
-
-      // remove loading
-      chatBox.removeChild(loading);
+      chatBox.removeChild(typingRow);
 
       if (!res.ok) {
-        console.error("Cohere error:", res.status, data);
-        addMessage(`Chyba API (${res.status}). Otevři Console (F12) pro detail.`, "chatAI");
+        console.error("Cohere error:", data);
+        addBubble("Chyba při odpovědi AI.", "ai");
         return;
       }
 
       let aiText = "Odpověď nepřišla.";
       if (data?.message?.content?.length) {
-        aiText = data.message.content.map(x => x.text).join("\n").trim();
+        aiText = data.message.content.map(x => x.text).join(" ");
       }
 
+      aiText = sanitize(aiText);
       history.push({ role: "assistant", content: aiText });
-      addMessage(aiText, "chatAI");
+
+      addBubble(aiText, "ai");
 
     } catch (err) {
-      try { chatBox.removeChild(loading); } catch {}
+      chatBox.removeChild(typingRow);
       console.error(err);
-      addMessage("Chyba při komunikaci (síť/CORS). Otevři Console (F12).", "chatAI");
+      addBubble("Chyba připojení k AI.", "ai");
     }
   }
 
+  // ================= EVENTS =================
   aiSend.addEventListener("click", sendMessage);
-  aiInput.addEventListener("keydown", (e) => {
+  aiInput.addEventListener("keydown", e => {
     if (e.key === "Enter") sendMessage();
   });
 }
 
-// Init even if DOMContentLoaded already fired
+// Init safely
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initAI);
 } else {

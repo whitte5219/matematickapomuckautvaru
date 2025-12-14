@@ -2,49 +2,58 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>Obvod • Obsah • Povrch • Objem</title>
+  <title>Matematická pomůcka</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Interaktivní matematická pomůcka</h1>
-<p class="subtitle">
-  Rozdíl mezi obvodem, obsahem, povrchem a objemem
-</p>
+<h1>Matematická pomůcka</h1>
 
-<div class="controls">
-  <label>
-    Pojem:
-    <select id="concept"></select>
-  </label>
-
-  <label>
-    Tvar:
-    <select id="shape"></select>
-  </label>
-
-  <div id="inputs"></div>
-
-  <div class="box">
-    <b>Vzorec:</b>
-    <div id="formula"></div>
-  </div>
-
-  <div class="box">
-    <b>Výsledek:</b>
-    <div id="result"></div>
-  </div>
-
-  <div class="box">
-    <b>Význam:</b>
-    <div id="meaning"></div>
-  </div>
+<div class="tabs">
+  <button onclick="showTab('calc')">Kalkulačka</button>
+  <button onclick="showTab('help')">Pomůcky</button>
 </div>
 
-<canvas id="canvas2d" width="500" height="300"></canvas>
-<canvas id="canvas3d" width="500" height="300"></canvas>
+<!-- KALKULAČKA -->
+<div id="calc" class="tab">
+  <h2>Kalkulačka</h2>
 
-<script src="shapes.js"></script>
+  <label>Pojem:
+    <select id="calcConcept"></select>
+  </label>
+
+  <label>Tvar:
+    <select id="calcShape"></select>
+  </label>
+
+  <div id="calcInputs"></div>
+
+  <p><b>Vzorec:</b> <span id="calcFormula"></span></p>
+  <p><b>Výsledek:</b> <span id="calcResult"></span></p>
+
+  <canvas id="calcCanvas" width="400" height="250"></canvas>
+</div>
+
+<!-- POMŮCKY -->
+<div id="help" class="tab hidden">
+  <h2>Pomůcky</h2>
+
+  <label>Pojem:
+    <select id="helpConcept"></select>
+  </label>
+
+  <p id="helpText"></p>
+
+  <div class="buttons">
+    <button onclick="rotate(-5,0)">⬅️</button>
+    <button onclick="rotate(5,0)">➡️</button>
+    <button onclick="rotate(0,-5)">⬆️</button>
+    <button onclick="rotate(0,5)">⬇️</button>
+  </div>
+
+  <canvas id="helpCanvas" width="400" height="250"></canvas>
+</div>
+
 <script src="main.js"></script>
 </body>
 </html>

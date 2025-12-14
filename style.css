@@ -6,13 +6,26 @@ body {
   padding: 20px;
 }
 
-h1, h2, h3 { text-align: center; margin: 10px 0; }
+h1, h2, h3 {
+  text-align: center;
+  margin: 10px 0;
+}
 
-.page { max-width: 980px; margin: 0 auto; }
-.hidden { display: none; }
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none;
+}
 
 /* Tabs */
-.tabs { text-align: center; margin-bottom: 18px; }
+.tabs {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
 .tabs button {
   padding: 8px 16px;
   margin: 0 5px;
@@ -20,10 +33,14 @@ h1, h2, h3 { text-align: center; margin: 10px 0; }
   border: 1px solid black;
   cursor: pointer;
 }
-.tabs button.active { font-weight: bold; background: #e0e0e0; }
+
+.tabs button.active {
+  font-weight: bold;
+  background: #e0e0e0;
+}
 
 /* Kalkulačka layout */
-#calc .row{
+#calc .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -32,9 +49,11 @@ h1, h2, h3 { text-align: center; margin: 10px 0; }
   text-align: left;
 }
 
-label { font-weight: normal; }
+label {
+  font-weight: normal;
+}
 
-select, input{
+select, input {
   width: 100%;
   padding: 6px;
   border: 1px solid #777;
@@ -43,7 +62,7 @@ select, input{
   margin-top: 4px;
 }
 
-.inputs{
+.inputs {
   max-width: 640px;
   margin: 10px auto;
   text-align: left;
@@ -52,13 +71,13 @@ select, input{
   gap: 12px;
 }
 
-#calc p{
+#calc p {
   text-align: center;
   font-size: 18px;
   margin: 8px 0;
 }
 
-canvas{
+canvas {
   display: block;
   margin: 16px auto;
   border: 1px solid black;
@@ -66,45 +85,114 @@ canvas{
 }
 
 /* Pomůcky cards */
-.helpCard{
+.helpCard {
   border: 1px solid black;
   padding: 10px;
   margin: 12px auto;
   max-width: 900px;
   text-align: left;
 }
-.helpTitle{ font-weight: bold; margin-bottom: 6px; }
 
-.helpGrid{
+.helpTitle {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.helpGrid {
   display: grid;
   grid-template-columns: 1.3fr 0.7fr;
   gap: 10px;
   align-items: center;
 }
-.helpImg{ text-align: center; }
-.helpText ul{ margin: 0; padding-left: 18px; }
+
+.helpImg {
+  text-align: center;
+}
+
+.helpText ul {
+  margin: 0;
+  padding-left: 18px;
+}
 
 /* AI assistant */
-#ai p{ max-width: 900px; margin: 10px auto; }
-#chatBox{
+#ai p {
+  max-width: 900px;
+  margin: 10px auto;
+}
+
+#chatBox {
   border: 1px solid black;
-  height: 300px;
-  padding: 10px;
+  height: 320px;
+  padding: 12px;
   overflow-y: auto;
   background: white;
   max-width: 900px;
   margin: 10px auto;
 }
-.chatUser{ text-align: right; margin: 8px 0; }
-.chatAI{ text-align: left; margin: 8px 0; }
 
-#ai .row{
+/* chat rows */
+.msgRow {
+  display: flex;
+  margin: 8px 0;
+}
+
+.msgRow.user {
+  justify-content: flex-end;
+}
+
+.msgRow.ai {
+  justify-content: flex-start;
+}
+
+/* bubbles */
+.bubble {
+  max-width: 75%;
+  padding: 10px 12px;
+  border: 1px solid black;
+  background: #f7f7f7;
+  font-size: 16px;
+  line-height: 1.25;
+  white-space: pre-wrap; /* keep line breaks */
+  word-wrap: break-word;
+}
+
+.bubble.user {
+  background: #e8f2ff; /* light blue */
+}
+
+.bubble.ai {
+  background: #f7f7f7;
+}
+
+/* typing animation */
+.typingDots {
+  display: inline-block;
+  font-size: 18px;
+  letter-spacing: 4px;
+  animation: dotsPulse 1s infinite;
+}
+
+@keyframes dotsPulse {
+  0%   { opacity: 0.2; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+/* AI input row */
+#ai .row {
   display: flex;
   gap: 10px;
   max-width: 900px;
   margin: 10px auto;
 }
-#aiSend{
+
+#aiInput {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+}
+
+#aiSend {
   width: 140px;
   background: #f0f0f0;
   border: 1px solid black;
@@ -112,10 +200,28 @@ canvas{
 }
 
 /* Mobile */
-@media (max-width: 700px){
-  #calc .row{ grid-template-columns: 1fr; }
-  .inputs{ grid-template-columns: 1fr; }
-  .helpGrid{ grid-template-columns: 1fr; }
-  #ai .row{ flex-direction: column; }
-  #aiSend{ width: 100%; }
+@media (max-width: 700px) {
+  #calc .row {
+    grid-template-columns: 1fr;
+  }
+
+  .inputs {
+    grid-template-columns: 1fr;
+  }
+
+  .helpGrid {
+    grid-template-columns: 1fr;
+  }
+
+  #ai .row {
+    flex-direction: column;
+  }
+
+  #aiSend {
+    width: 100%;
+  }
+
+  .bubble {
+    max-width: 90%;
+  }
 }
